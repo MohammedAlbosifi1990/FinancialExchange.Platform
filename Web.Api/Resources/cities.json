@@ -1,0 +1,16 @@
+﻿[
+  {
+    "Key": "CITY_IS_ALREADY_EXIST",
+    "LocalizedValue": {
+      "ar": "المدينة موجودة مسبقا",
+      "en": "CITY_IS_ALREADY_EXIST"
+    }
+  },{
+    "Key": "CITY_IS_Not_EXIST",
+    "LocalizedValue": {
+      "ar": "المدينة غير موجودة",
+      "en": "CITY_IS_Not_EXIST"
+    }
+  }
+  
+]

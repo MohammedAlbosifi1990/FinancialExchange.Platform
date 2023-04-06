@@ -1,0 +1,114 @@
+﻿[
+  {
+    "Key": "USER_NOT_EXIST",
+    "LocalizedValue": {
+      "ar": "المستخدم غير موجود",
+      "en": "User Not Exist"
+    }
+  },
+  {
+    "Key": "USER_ACCOUNT_IS_DISABLED",
+    "LocalizedValue": {
+      "ar": "حساب المستخدم موقوف الرجاء التواصل مع الادارة",
+      "en": "User Account Is Disable"
+    }
+  },
+  {
+    "Key": "CONTACT_WITH_ADMIN",
+    "LocalizedValue": {
+      "ar": "الرجاء التواصل مع الادارة",
+      "en": "{0}  hgf {1}"
+    }
+  },
+  {
+    "Key": "USER_ACCOUNT_IS_LOCKED",
+    "LocalizedValue": {
+      "ar": "الحساب موقوف لمدة {0} دقائق",
+      "en": "USER_ACCOUNT_IS_LOCK"
+    }
+  },
+  {
+    "Key": "CONFIRMATION_CODE_TIME_IS_SPEND",
+    "LocalizedValue": {
+      "ar": "صلاحية كود التحقق منتهية",
+      "en": "CONFIRMATION_CODE_TIME_IS_SPEND"
+    }
+  },
+  {
+    "Key": "CONFIRMATION_CODE_IS_NOT_EQUAL",
+    "LocalizedValue": {
+      "ar": "كود التحقق غير صحيح",
+      "en": "CONFIRMATION_CODE_IS_NOT_EQUAL"
+    }
+  },
+  {
+    "Key": "INVALID_ACCESS_TOKEN",
+    "LocalizedValue": {
+      "ar": "التوكن غير صحيح",
+      "en": "INVALID_ACCESS_TOKEN"
+    }
+  },
+  {
+    "Key": "INVALID_ACCESS_TOKEN",
+    "LocalizedValue": {
+      "ar": "التوكن غير صحيح",
+      "en": "INVALID_ACCESS_TOKEN"
+    }
+  },
+  {
+    "Key": "INVALID_REFRESH_TOKEN",
+    "LocalizedValue": {
+      "ar": "كود تحديث التوكن غير صحيح",
+      "en": "INVALID_REFRESH_TOKEN"
+    }
+  },
+  {
+    "Key": "USER_ACCOUNT_IS_ALLOWED",
+    "LocalizedValue": {
+      "ar": "حساب المستخدم غير مسموح له بالدخول",
+      "en": "USER_ACCOUNT_IS_ALLOWED"
+    }
+  },
+  {
+    "Key": "PHONE_IS_NOT_CONFIRMED",
+    "LocalizedValue": {
+      "ar": "رقم الهاتف غير موثق",
+      "en": "PHONE_IS_NOT_CONFIRMED"
+    }
+  },
+  {
+    "Key": "Email_IS_NOT_CONFIRMED",
+    "LocalizedValue": {
+      "ar": "الأيميل غير موثق",
+      "en": "Email_IS_NOT_CONFIRMED"
+    }
+  },
+  {
+    "Key": "CONFIRMATION_CODE_ASSIGNED_FOR_PHONE",
+    "LocalizedValue": {
+      "ar": "رمز التحقق صرف لي رقم الهاتف",
+      "en": "CONFIRMATION_CODE_ASSIGNED_FOR_PHONE"
+    }
+  },
+  {
+    "Key": "PASSWORD_IS_WRONG",
+    "LocalizedValue": {
+      "ar": "خطأ في رمز الدخول",
+      "en": "PASSWORD_IS_WRONG"
+    }
+  },
+  {
+    "Key": "EMAIL_ADDRESS_IS_ALREADY_EXIST",
+    "LocalizedValue": {
+      "ar": "عنوان البريد الألكتروني موجود مسبقا",
+      "en": "EMAIL_ADDRESS_IS_ALREADY_EXIST"
+    }
+  },
+  {
+    "Key": "USER_NAME_ADDRESS_IS_ALREADY_EXIST",
+    "LocalizedValue": {
+      "ar": "أسم المستخدم موجود مسبقا",
+      "en": "USER_NAME_ADDRESS_IS_ALREADY_EXIST"
+    }
+  }
+]
