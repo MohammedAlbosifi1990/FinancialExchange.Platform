@@ -15,7 +15,7 @@ public class RegistrationController : PublicBaseController
     {
         _smsSender = smsSender;
     }
-    [HttpPost(Constants.Routes.Authentications.RegisterByPhone)]
+    [HttpPost(RoutesConst.Authentications.RegisterByPhone)]
     public async Task<ActionResult<ApiResponse>> RegisterByPhone([FromBody] RegisterByPhoneCommand requestDto)
     {
         var result = await Mediator.Send(requestDto);

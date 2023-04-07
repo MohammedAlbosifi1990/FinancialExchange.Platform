@@ -1,7 +1,7 @@
 ﻿using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Interfaces;
 using Microsoft.OpenApi.Models;
-using Constants = Shared.Core.Domain.Constants.Constants;
+using Shared.Core.Domain.Constants;
 
 namespace Web.Api.Installers;
 
@@ -73,14 +73,14 @@ public static class SwaggerInstaller
                 {
                     if (name.ToLower().Contains(value: "Public".ToLower()))
                         return api.RelativePath != null && api.RelativePath.ToLower()
-                            .StartsWith(value: Constants.Routes.PublicPrefix.ToLower());
+                            .StartsWith(value: RoutesConst.PublicPrefix.ToLower());
                     if (name.ToLower().Contains(value: "Protected".ToLower()))
                         return api.RelativePath != null && api.RelativePath.ToLower()
-                            .StartsWith(value: Constants.Routes.ProtectedPrefix.ToLower());
+                            .StartsWith(value: RoutesConst.ProtectedPrefix.ToLower());
 
                     return api.RelativePath != null
-                           && !api.RelativePath.ToLower().StartsWith(Constants.Routes.ProtectedPrefix.ToLower())
-                           && !api.RelativePath.ToLower().StartsWith(Constants.Routes.PublicPrefix.ToLower());
+                           && !api.RelativePath.ToLower().StartsWith(RoutesConst.ProtectedPrefix.ToLower())
+                           && !api.RelativePath.ToLower().StartsWith(RoutesConst.PublicPrefix.ToLower());
                 });
             });
 

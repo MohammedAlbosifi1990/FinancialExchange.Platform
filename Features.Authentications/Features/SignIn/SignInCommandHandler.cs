@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using Shared.Core.Domain.Constants;
 using Shared.Core.Domain.Entities;
 using Shared.Core.Domain.Enum;
 using Shared.Core.Domain.Extensions;
 using Shared.Core.Domain.Models.Options;
-using Constants = Shared.Core.Domain.Constants.Constants;
 
 namespace Features.Authentications.Features.SignIn;
 
@@ -49,16 +49,16 @@ public sealed record SignInCommandHandler : IRequestHandler<SignInCommand, SignI
         };
 
         if (user == null)
-            return SignInResultDto.Failed(_localizer[Constants.Authentications.UserNotExist]);
+            return SignInResultDto.Failed(_localizer[AuthenticationsConst.UserNotExist]);
 
         if (user.IsDisabled)
         {
             await _userManager.AccessFailedAsync(user);
-            return SignInResultDto.Failed(_localizer[Constants.Authentications.UserAccountIsDisabled]);
+            return SignInResultDto.Failed(_localizer[AuthenticationsConst.UserAccountIsDisabled]);
         }
 
         if (await _userManager.IsLockedOutAsync(user))
-            return SignInResultDto.Failed(string.Format(_localizer[Constants.Authentications.UserAccountIsLocked],
+            return SignInResultDto.Failed(string.Format(_localizer[AuthenticationsConst.UserAccountIsLocked],
                 _authenticationsOption.LockoutTimeInMinute));
 
 
@@ -66,10 +66,10 @@ public sealed record SignInCommandHandler : IRequestHandler<SignInCommand, SignI
         {
             case CredentialType.EmailAndPassword when !user.EmailConfirmed:
                 await _userManager.AccessFailedAsync(user);
-                return SignInResultDto.Failed(_localizer[Constants.Authentications.EmailIsNotConfirmed]);
+                return SignInResultDto.Failed(_localizer[AuthenticationsConst.EmailIsNotConfirmed]);
             case CredentialType.PhoneAndPassword or CredentialType.PhoneAndOtpCode when !user.PhoneNumberConfirmed:
                 await _userManager.AccessFailedAsync(user);
-                return SignInResultDto.Failed(_localizer[Constants.Authentications.PhoneIsNotConfirmed]);
+                return SignInResultDto.Failed(_localizer[AuthenticationsConst.PhoneIsNotConfirmed]);
         }
 
 
@@ -78,7 +78,7 @@ public sealed record SignInCommandHandler : IRequestHandler<SignInCommand, SignI
             if (user.ConfirmationCodeUsedFor != ConfirmationCodeFor.Phone)
             {
                 await _userManager.AccessFailedAsync(user);
-                return SignInResultDto.Failed(_localizer[Constants.Authentications.ConfirmationCodeAssignedForPhone]);
+                return SignInResultDto.Failed(_localizer[AuthenticationsConst.ConfirmationCodeAssignedForPhone]);
             }
 
             if (!user.IsValidConfirmationCode(command.Secret, out var error))
@@ -93,7 +93,7 @@ public sealed record SignInCommandHandler : IRequestHandler<SignInCommand, SignI
             if (!checkPasswordResult)
             {
                 await _userManager.AccessFailedAsync(user);
-                return SignInResultDto.Failed(_localizer[Constants.Authentications.PasswordIsWrong]);
+                return SignInResultDto.Failed(_localizer[AuthenticationsConst.PasswordIsWrong]);
             }
         }
 
@@ -103,10 +103,10 @@ public sealed record SignInCommandHandler : IRequestHandler<SignInCommand, SignI
         if (!result.Succeeded)
         {
             if (result.IsLockedOut)
-                return SignInResultDto.Failed(string.Format(_localizer[Constants.Authentications.UserAccountIsLocked],
+                return SignInResultDto.Failed(string.Format(_localizer[AuthenticationsConst.UserAccountIsLocked],
                     _authenticationsOption.LockoutTimeInMinute));
             if (result.IsNotAllowed)
-                return SignInResultDto.Failed(_localizer[Constants.Authentications.UserAccountIsAllowed]);
+                return SignInResultDto.Failed(_localizer[AuthenticationsConst.UserAccountIsAllowed]);
         }
 
         var token = await _tokenService.GenerateAccessToken(user);

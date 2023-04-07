@@ -7,7 +7,7 @@ namespace Features.Authentications.Features.Password.ForgetPassword;
 
 public partial class PasswordController : PublicBaseController
 {
-    [HttpPost(Constants.Routes.Authentications.ForGetPassword)]
+    [HttpPost(RoutesConst.Authentications.ForGetPassword)]
     public async Task<ActionResult<ApiResponse>> ForGetPassword()
     {
         var result = await Mediator.Send(new ForgetPasswordCommand(Guid.NewGuid()));

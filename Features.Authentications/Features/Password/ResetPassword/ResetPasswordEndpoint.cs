@@ -7,7 +7,7 @@ namespace Features.Authentications.Features.Password.ResetPassword;
 
 public partial class PasswordController : PublicBaseController
 {
-    [HttpPost(Constants.Routes.Authentications.ResetPassword)]
+    [HttpPost(RoutesConst.Authentications.ResetPassword)]
     public async Task<ActionResult<ApiResponse>> ChangePassword(
         [FromBody] string code,[FromBody] string password)
     {

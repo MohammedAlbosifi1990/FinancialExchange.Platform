@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Shared.Core.Domain.Constants;
 using Shared.Core.Domain.Entities;
 using Shared.Core.Domain.Extensions;
 using Shared.Core.Domain.Models.Options;
-using Constants = Shared.Core.Domain.Constants.Constants;
 
 namespace Features.Authentications.Services.Token;
 
@@ -74,17 +74,17 @@ public class TokenService : ITokenService
     {
         var principal = await GetPrincipalFromExpiredToken(accessToken);
         if (principal == null)
-            return RefreshTokenResult.SetError(_localizer[Constants.Authentications.InvalidAccessToken]);
+            return RefreshTokenResult.SetError(_localizer[AuthenticationsConst.InvalidAccessToken]);
 
         var id = principal.UserId();
 
         if (id == Guid.Empty)
-            return RefreshTokenResult.SetError(_localizer[Constants.Authentications.InvalidAccessToken]);
+            return RefreshTokenResult.SetError(_localizer[AuthenticationsConst.InvalidAccessToken]);
 
         var user = await _userManager.FindByIdAsync(id.ToString());
 
         if (user == null || user.IsValidRefreshToken(refreshToken))
-            return RefreshTokenResult.SetError(_localizer[Constants.Authentications.InvalidRefreshToken]);
+            return RefreshTokenResult.SetError(_localizer[AuthenticationsConst.InvalidRefreshToken]);
 
         var newAccessToken = await GenerateAccessToken(user);
         var newRefreshToken = await GenerateRefreshToken();
@@ -104,7 +104,7 @@ public class TokenService : ITokenService
     public async Task<RefreshTokenResult> RevokeToken(Guid userId)
     {
         var user = await _userManager.FindByIdAsync(userId.ToString());
-        if (user == null) return RefreshTokenResult.SetError(_localizer[Constants.Authentications.UserNotExist]);
+        if (user == null) return RefreshTokenResult.SetError(_localizer[AuthenticationsConst.UserNotExist]);
 
         user.RefreshToken = null;
         user.RefreshTokenExpiryTime = null;

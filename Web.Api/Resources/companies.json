@@ -1,0 +1,16 @@
+﻿[
+  {
+    "Key": "COMPANY_IS_ALREADY_EXIST",
+    "LocalizedValue": {
+      "ar": "الشركة موجودة مسبقا",
+      "en": "COMPANY_IS_ALREADY_EXIST"
+    }
+  },{
+    "Key": "COMPANY_IS_Not_EXIST",
+    "LocalizedValue": {
+      "ar": "الشركة غير موجودة",
+      "en": "COMPANY_IS_Not_EXIST"
+    }
+  }
+  
+]

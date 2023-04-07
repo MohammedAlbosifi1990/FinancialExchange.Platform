@@ -24,7 +24,7 @@ public sealed record RemoveCityCommandHandler : IRequestHandler<RemoveCityComman
 
         var city = await _citiesRepo.SingleOrDefault(c => c.Id == command.Id);
         if (city==null)
-            throw NotFoundException.Throw(_localizer[Constants.Cities.CityIsNotExist]);
+            throw NotFoundException.Throw(_localizer[CitiesConst.CityIsNotExist]);
 
         await _citiesRepo.Remove(city);
         await _citiesRepo.Commit(cancellationToken);

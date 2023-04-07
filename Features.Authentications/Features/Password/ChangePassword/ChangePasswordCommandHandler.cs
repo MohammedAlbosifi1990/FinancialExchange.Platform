@@ -32,10 +32,10 @@ public sealed record
     {
         var user = await _userManager.FindByIdAsync(command.Id.ToString());
         if (user==null)
-            throw NotFoundException.Throw(_localizer[Constants.Authentications.UserNotExist]);
+            throw NotFoundException.Throw(_localizer[AuthenticationsConst.UserNotExist]);
 
         if (user.IsDisabled)
-            throw BadRequestException.Throw(_localizer[Constants.Authentications.UserAccountIsDisabled]);
+            throw BadRequestException.Throw(_localizer[AuthenticationsConst.UserAccountIsDisabled]);
 
         if (!await _userManager.CheckPasswordAsync(user,command.OldPassword))
             throw BadRequestException.Throw("خطأ في رمز المرور القديم");

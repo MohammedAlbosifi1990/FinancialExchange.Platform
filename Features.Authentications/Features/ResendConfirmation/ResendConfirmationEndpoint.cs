@@ -18,7 +18,7 @@ public partial class ConfirmationController : PublicBaseController
         _smsSender = smsSender;
     }
 
-    [HttpPost(Constants.Routes.Authentications.ResendConfirmationCode)]
+    [HttpPost(RoutesConst.Authentications.ResendConfirmationCode)]
     public async Task<ActionResult<ApiResponse>> ResendConfirmationCode(
         [FromBody] ResendConfirmationCommand requestDto)
     {

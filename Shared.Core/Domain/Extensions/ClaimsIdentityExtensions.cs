@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Shared.Core.Domain.Constants;
 using static System.Guid;
 
 namespace Shared.Core.Domain.Extensions;
@@ -6,14 +7,14 @@ namespace Shared.Core.Domain.Extensions;
 public static class ClaimsIdentityExtensions
 {
     public static bool Id(this ClaimsPrincipal? claimsIdentity, out string? id)
-        => TryGet(claimsIdentity, Domain.Constants.Constants.Claims.UserId, out id);
+        => TryGet(claimsIdentity, ClaimsConst.UserId, out id);
 
 
     public static bool Id(this ClaimsPrincipal? claimsIdentity, out Guid id)
     {
         if (claimsIdentity != null)
         {
-            var claim = claimsIdentity.FindFirst(Domain.Constants.Constants.Claims.UserId);
+            var claim = claimsIdentity.FindFirst(ClaimsConst.UserId);
             if (claim != null)
                 return TryParse(claim.Value, out id);
 
@@ -28,7 +29,7 @@ public static class ClaimsIdentityExtensions
 
     public static Guid UserId(this ClaimsPrincipal? claimsIdentity)
     {
-        var id = claimsIdentity?.FindFirst(Constants.Constants.Claims.UserId);
+        var id = claimsIdentity?.FindFirst(ClaimsConst.UserId);
         if (id == null) return Empty;
 
         return TryParse(id.Value, out var userId) ? userId : Empty;

@@ -22,11 +22,11 @@ public sealed record EditCityCommandHandler : IRequestHandler<EditCityCommand, E
     {
         var isExist = await _citiesRepo.Exist(c => c.Name == command.Name && c.Id != command.Id);
         if (isExist)
-            throw FoundException.Throw(_localizer[Constants.Cities.CityIsAlreadyExist]);
+            throw FoundException.Throw(_localizer[CitiesConst.CityIsAlreadyExist]);
         
         var city = await _citiesRepo.SingleOrDefault(c => c.Id == command.Id);
         if (city==null)
-            throw NotFoundException.Throw(_localizer[Constants.Cities.CityIsNotExist]);
+            throw NotFoundException.Throw(_localizer[CitiesConst.CityIsNotExist]);
         
         city.Name = command.Name;
         await _citiesRepo.Commit(cancellationToken);

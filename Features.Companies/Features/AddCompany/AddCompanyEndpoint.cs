@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Shared.Core.Base;
+using Shared.Core.Domain.Constants;
 using Shared.Core.Domain.Constants.Features;
 using Shared.Core.Domain.Entities;
 using Shared.Core.Domain.Exceptions;
@@ -30,7 +31,7 @@ public class CompanyController : PublicBaseController
     {
         var company = await _companyRepo.SingleOrDefault(c => c.Id == id);
         if (company == null)
-            throw NotFoundException.Throw(_localizer[Constants.Cities.CityIsNotExist]);
+            throw NotFoundException.Throw(_localizer[CompaniesConst.CompanyIsNotExist]);
         return Ok(ApiResponse.Ok((CompanyResponseDto)company));
     }
 
@@ -88,12 +89,12 @@ public class CompanyController : PublicBaseController
     {
         var isExist = await _companyRepo.Exist(c => c.Name == requestDto.Name && c.UserId == User.UserId());
         if (isExist)
-            throw FoundException.Throw(_localizer[Constants.Cities.CityIsAlreadyExist]);
+            throw FoundException.Throw(_localizer[CompaniesConst.CompanyIsAlreadyExist]);
 
         string? logoPath = null;
         if (requestDto.LogoPath != null)
         {
-            var result = await requestDto.LogoPath.SaveTo(Shared.Core.Domain.Constants.Constants.Paths.Companies);
+            var result = await requestDto.LogoPath.SaveTo(PathsConst.Companies);
             if (!result.Success)
                 throw UploadFileException.Throw(result.Path ?? "Error With File Uploaded");
             logoPath = result.Path;
@@ -118,11 +119,11 @@ public class CompanyController : PublicBaseController
         var isExist =
             await _companyRepo.Exist(c => c.Id != id && c.Name == requestDto.Name && c.UserId == User.UserId());
         if (isExist)
-            throw FoundException.Throw(_localizer[Constants.Cities.CityIsAlreadyExist]);
+            throw FoundException.Throw(_localizer[CompaniesConst.CompanyIsAlreadyExist]);
 
         var company = await _companyRepo.SingleOrDefault(c => c.Id == id);
         if (company == null)
-            throw NotFoundException.Throw(_localizer[Constants.Cities.CityIsNotExist]);
+            throw NotFoundException.Throw(_localizer[CompaniesConst.CompanyIsNotExist]);
 
         string? logoPath = null;
         if (requestDto.LogoPath != null)
@@ -137,7 +138,7 @@ public class CompanyController : PublicBaseController
             }
             else
             {
-                var result = await requestDto.LogoPath.SaveTo(Shared.Core.Domain.Constants.Constants.Paths.Companies);
+                var result = await requestDto.LogoPath.SaveTo(PathsConst.Companies);
                 if (!result.Success)
                     throw UploadFileException.Throw(result.Path ?? "Error With File Uploaded");
                 logoPath = result.Path;
@@ -162,7 +163,7 @@ public class CompanyController : PublicBaseController
     {
         var company = await _companyRepo.SingleOrDefault(c => c.Id == id);
         if (company == null)
-            throw NotFoundException.Throw(_localizer[Constants.Cities.CityIsNotExist]);
+            throw NotFoundException.Throw(_localizer[CompaniesConst.CompanyIsNotExist]);
 
         //TODO Check If Company Has Office
         await _companyRepo.Remove(company);

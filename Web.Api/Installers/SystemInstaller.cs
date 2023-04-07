@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.FileProviders;
 using Shared.Core;
+using Shared.Core.Domain.Constants;
 using Shared.DataPersistence;
 using Web.Api.Middlewares;
-using Constants = Shared.Core.Domain.Constants.Constants;
 
 namespace Web.Api.Installers;
 
@@ -32,8 +32,8 @@ public static class SystemInstaller
         app.UseStaticFiles(new StaticFileOptions
         {
             FileProvider = new PhysicalFileProvider(
-                Path.Combine(environment.ContentRootPath, Constants.Paths.Root)),
-            RequestPath = $"/{Constants.Paths.Root}"
+                Path.Combine(environment.ContentRootPath, PathsConst.Root)),
+            RequestPath = $"/{PathsConst.Root}"
         });
 
 

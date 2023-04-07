@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using Shared.Core.Domain.Constants;
 using Shared.Core.Domain.Entities;
 using Shared.Core.Domain.Enum;
 using Shared.Core.Domain.Extensions;
 using Shared.Core.Domain.Models.Options;
-using Constants = Shared.Core.Domain.Constants.Constants;
 
 namespace Features.Authentications.Features.Registrations.UserNameAndPassword;
 
@@ -37,7 +37,7 @@ public sealed record
             .Users
             .SingleOrDefaultAsync(u => u.UserName == command.UserName, cancellationToken);
         if (user != null)
-            return RegisterResultDto.Failed(_localizer[Constants.Authentications.UserNameIsAlreadyExist]);
+            return RegisterResultDto.Failed(_localizer[AuthenticationsConst.UserNameIsAlreadyExist]);
 
 
         var registerUser = new User()
@@ -76,16 +76,16 @@ public sealed record
     {
         var addClaimResults = await _userManager.AddClaimsAsync(registerUser, new List<Claim>()
         {
-            new(Constants.Claims.UserId, registerUser.Id.ToString()),
-            new(Constants.Claims.Name, registerUser.FullName),
-            new(Constants.Claims.UserName, registerUser.UserName ?? ""),
-            new(Constants.Claims.Email, registerUser.Email ?? ""),
-            new(Constants.Claims.Phone, registerUser.PhoneNumber ?? ""),
-            new(Constants.Claims.EmailConfirmed, registerUser.EmailConfirmed ? "true" : "false"),
-            new(Constants.Claims.PhoneConfirmed, registerUser.PhoneNumberConfirmed ? "true" : "false"),
-            new(Constants.Claims.Type, registerUser.Type.ToString()),
-            new(Constants.Claims.IsDisabled, registerUser.IsDisabled ? "true" : "false"),
-            new(Constants.Claims.IsAccepted, registerUser.IsAccepted ? "true" : "false")
+            new(ClaimsConst.UserId, registerUser.Id.ToString()),
+            new(ClaimsConst.Name, registerUser.FullName),
+            new(ClaimsConst.UserName, registerUser.UserName ?? ""),
+            new(ClaimsConst.Email, registerUser.Email ?? ""),
+            new(ClaimsConst.Phone, registerUser.PhoneNumber ?? ""),
+            new(ClaimsConst.EmailConfirmed, registerUser.EmailConfirmed ? "true" : "false"),
+            new(ClaimsConst.PhoneConfirmed, registerUser.PhoneNumberConfirmed ? "true" : "false"),
+            new(ClaimsConst.Type, registerUser.Type.ToString()),
+            new(ClaimsConst.IsDisabled, registerUser.IsDisabled ? "true" : "false"),
+            new(ClaimsConst.IsAccepted, registerUser.IsAccepted ? "true" : "false")
             //TODO Add Permissions Claims
         });
         return addClaimResults.Succeeded

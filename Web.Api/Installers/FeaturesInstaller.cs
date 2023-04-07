@@ -24,8 +24,8 @@ public static class FeaturesInstaller
         var authenticationsFeature = myArray.FirstOrDefault(f => f.Name.ToLower().Equals("Authentications".ToLower()));
         if (authenticationsFeature is { IsActive: true })
             services.AddFeatures<Features.Authentications.ServiceInstaller>(configuration);
-        
-        
+
+
         return services;
     }
 
@@ -46,6 +46,8 @@ public static class FeaturesInstaller
             services.AddValidatorsFromAssembly(typeof(TFeature).Assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
         }
+
+        services.AddAutoMapper(typeof(TFeature));
 
 
         services.AddSingleton<IFeature>(feature);

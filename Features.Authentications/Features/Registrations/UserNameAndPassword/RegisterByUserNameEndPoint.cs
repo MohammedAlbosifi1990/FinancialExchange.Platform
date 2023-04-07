@@ -2,9 +2,9 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Shared.Core.Base;
+using Shared.Core.Domain.Constants;
 using Shared.Core.Domain.Models;
 using Shared.Core.Services.Emails;
-using Constants = Shared.Core.Domain.Constants.Constants;
 
 namespace Features.Authentications.Features.Registrations.UserNameAndPassword;
 
@@ -15,7 +15,7 @@ public class RegistrationController : PublicBaseController
     {
         _emailSender = emailSender;
     }
-    [HttpPost(Constants.Routes.Authentications.RegisterByUserName)]
+    [HttpPost(RoutesConst.Authentications.RegisterByUserName)]
     public async Task<ActionResult<ApiResponse>> RegisterByUserName([FromBody] RegisterByUserNameCommand requestDto)
     {
         var result = await Mediator.Send(requestDto);

@@ -23,7 +23,7 @@ public sealed record AddCompanyCommandHandler : IRequestHandler<AddCompanyComman
     {
         var isExist = await _companyRepo.Exist(c => c.Name == command.Name && c.UserId == command.UserId);
         if (isExist)
-            throw FoundException.Throw(_localizer[Constants.Cities.CityIsAlreadyExist]);
+            throw FoundException.Throw(_localizer[CompaniesConst.CompanyIsAlreadyExist]);
 
         var companyEntry = await _companyRepo.Add(new Company()
         {

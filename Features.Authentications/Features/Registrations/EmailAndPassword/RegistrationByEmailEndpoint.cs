@@ -15,7 +15,7 @@ public class RegistrationController : PublicBaseController
     {
         _emailSender = emailSender;
     }
-    [HttpPost(Constants.Routes.Authentications.RegisterByEmail)]
+    [HttpPost(RoutesConst.Authentications.RegisterByEmail)]
     public async Task<ActionResult<ApiResponse>> RegisterByEmail(
         [FromBody] RegisterByEmailCommand requestDto)
     {

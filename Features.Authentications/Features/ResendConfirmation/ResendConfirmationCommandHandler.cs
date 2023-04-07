@@ -43,16 +43,16 @@ public sealed record
         };
 
         if (user == null)
-            throw BadRequestException.Throw(_localizer[Constants.Authentications.UserNotExist]);
+            throw BadRequestException.Throw(_localizer[AuthenticationsConst.UserNotExist]);
 
         if (user.IsDisabled)
         {
             await _userManager.AccessFailedAsync(user);
-            throw BadRequestException.Throw(_localizer[Constants.Authentications.UserAccountIsDisabled]);
+            throw BadRequestException.Throw(_localizer[AuthenticationsConst.UserAccountIsDisabled]);
         }
 
         if (await _userManager.IsLockedOutAsync(user))
-            throw BadRequestException.Throw(_localizer[Constants.Authentications.UserAccountIsLocked]);
+            throw BadRequestException.Throw(_localizer[AuthenticationsConst.UserAccountIsLocked]);
 
         var code = user.SetConfirmationCode(
             command.Type switch

@@ -6,7 +6,7 @@ using Shared.Core.Domain.Constants;
 namespace Shared.Core.Base;
 
 [ApiController]
-[Route(Constants.Routes.PublicPrefixC)]
+[Route(RoutesConst.PublicPrefixC)]
 public abstract class PublicBaseController : ControllerBase
 {
     private ISender? _mediator;
@@ -16,7 +16,7 @@ public abstract class PublicBaseController : ControllerBase
 }
 
 [ApiController]
-[Route(Constants.Routes.ProtectedPrefixC)]
+[Route(RoutesConst.ProtectedPrefixC)]
 public abstract class ProtectedBaseApiController : ControllerBase
 {
     private ISender? _mediator;

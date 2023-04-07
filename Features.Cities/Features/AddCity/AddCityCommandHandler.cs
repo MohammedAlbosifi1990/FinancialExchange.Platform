@@ -23,7 +23,7 @@ public sealed record AddCityCommandHandler : IRequestHandler<AddCityCommand, Add
     {
         var isExist = await _citiesRepo.Exist(c => c.Name == command.Name);
         if (isExist)
-            throw FoundException.Throw(_localizer[Constants.Cities.CityIsAlreadyExist]);
+            throw FoundException.Throw(_localizer[CitiesConst.CityIsAlreadyExist]);
 
         var cityEntry = await _citiesRepo.Add(new City()
         {

@@ -41,13 +41,13 @@ public sealed record CodeConfirmationCommandHandler : IRequestHandler<CodeConfir
         };
 
         if (user == null)
-            throw BadRequestException.Throw(_localizer[Constants.Authentications.UserNotExist]);
+            throw BadRequestException.Throw(_localizer[AuthenticationsConst.UserNotExist]);
 
         if (user.IsDisabled)
-            throw BadRequestException.Throw(_localizer[Constants.Authentications.UserAccountIsDisabled]);
+            throw BadRequestException.Throw(_localizer[AuthenticationsConst.UserAccountIsDisabled]);
 
         if (await _userManager.IsLockedOutAsync(user))
-            throw BadRequestException.Throw(_localizer[Constants.Authentications.UserAccountIsLocked]);
+            throw BadRequestException.Throw(_localizer[AuthenticationsConst.UserAccountIsLocked]);
 
         if (!user.IsValidConfirmationCode(command.Secret, out var error,
                 _authenticationsOption.ConfirmationCodeExpirationTimeInMinute))

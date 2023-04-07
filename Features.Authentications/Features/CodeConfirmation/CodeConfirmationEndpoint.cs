@@ -10,7 +10,7 @@ namespace Features.Authentications.Features.CodeConfirmation;
 [Authorize]
 public partial class ConfirmationController : PublicBaseController
 {
-    [HttpPost(Constants.Routes.Authentications.Confirm)]
+    [HttpPost(RoutesConst.Authentications.Confirm)]
     public async Task<ActionResult<ApiResponse>> SignInByEmail([FromBody] CodeConfirmationCommand requestDto)
     {
         IApiResult result = await Mediator.Send(requestDto);

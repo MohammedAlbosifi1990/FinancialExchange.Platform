@@ -25,7 +25,7 @@ public sealed record RemoveCityCommandHandler : IRequestHandler<GetCityByIdComma
     {
         var city = await _citiesRepo.SingleOrDefault(c => c.Id == command.Id);
         if (city == null)
-            throw NotFoundException.Throw(_localizer[Constants.Cities.CityIsNotExist]);
+            throw NotFoundException.Throw(_localizer[CitiesConst.CityIsNotExist]);
 
         return city;
     }
