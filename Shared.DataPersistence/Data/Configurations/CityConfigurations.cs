@@ -9,6 +9,7 @@ public class CityConfigurations : IEntityTypeConfiguration<City>
     public void Configure(EntityTypeBuilder<City> builder)
     {
         builder.HasIndex(r => r.Name).IsUnique();
+
         
     }
 }
