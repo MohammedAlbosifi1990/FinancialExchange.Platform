@@ -40,9 +40,7 @@ public class CompanyController : PublicBaseController
     public async Task<ActionResult<ApiResponse<IEnumerable<CompanyResponseDto>>>> SearchCompany(string? name)
     {
         var queryCompany = await _companyRepo.AsQueryable();
-
         queryCompany = queryCompany.Where(c => c.UserId == User.UserId());
-
         if (!string.IsNullOrEmpty(name))
             queryCompany = queryCompany.Where(c => c.Name.Contains(name));
 

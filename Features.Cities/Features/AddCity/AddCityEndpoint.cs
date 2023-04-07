@@ -11,6 +11,9 @@ public partial class CitiesController : PublicBaseController
     public async Task<ActionResult<ApiResponse<AddCityResponseDto>>> AddCity([FromBody] AddCityCommand requestDto)
     {
         var result = await Mediator.Send(requestDto);
-        return Ok(ApiResponse.Ok(result));
+        if (!result.IsSuccess)
+            return BadRequest(ApiResponse.BadRequest(result.Message));
+        return Ok(ApiResponse.Ok((AddCityResponseDto)result.Data));
     }
 }
+

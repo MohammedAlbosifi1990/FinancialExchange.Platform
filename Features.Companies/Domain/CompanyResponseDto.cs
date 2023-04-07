@@ -12,19 +12,6 @@ public class CompanyResponseDto
     public string? LogoPath { get; set; }
 
 
-    public static implicit operator CompanyResponseDto(AddCompanyResultDto result)
-    {
-        return new CompanyResponseDto()
-        {
-            Name = result.Name!,
-            UserName = result.User!.FullName,
-            Id = result.Id,
-            UserId = result.User!.Id,
-            Email = result.Email,
-            LogoPath = result.LogoPath
-        };
-    }
-    
     public static implicit operator CompanyResponseDto(Company company)
     {
         return new CompanyResponseDto()

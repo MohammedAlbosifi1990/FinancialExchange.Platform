@@ -4,11 +4,12 @@ using Microsoft.Extensions.Localization;
 using Shared.Core.Domain.Constants.Features;
 using Shared.Core.Domain.Entities;
 using Shared.Core.Domain.Exceptions;
+using Shared.Core.Domain.Models;
 using Shared.Core.Repositories;
 
 namespace Features.Companies.Features.AddCompany;
 
-public sealed record AddCompanyCommandHandler : IRequestHandler<AddCompanyCommand, AddCompanyResultDto>
+public sealed record AddCompanyCommandHandler : IRequestHandler<AddCompanyCommand, ApiResult<Company>>
 {
     private readonly IStringLocalizer _localizer;
     private readonly ICompanyRepository _companyRepo;
@@ -19,7 +20,7 @@ public sealed record AddCompanyCommandHandler : IRequestHandler<AddCompanyComman
         _companyRepo = companyRepo;
     }
 
-    public async Task<AddCompanyResultDto> Handle(AddCompanyCommand command, CancellationToken cancellationToken)
+    public async Task<ApiResult<Company>> Handle(AddCompanyCommand command, CancellationToken cancellationToken)
     {
         var isExist = await _companyRepo.Exist(c => c.Name == command.Name && c.UserId == command.UserId);
         if (isExist)
@@ -32,6 +33,7 @@ public sealed record AddCompanyCommandHandler : IRequestHandler<AddCompanyComman
             Email = command.Email
         });
         await _companyRepo.Commit(cancellationToken);
-        return companyEntry;
+        
+        return ApiResult<Company>.Success(companyEntry);
     }
 }

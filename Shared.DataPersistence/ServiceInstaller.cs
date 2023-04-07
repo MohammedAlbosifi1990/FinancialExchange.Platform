@@ -20,9 +20,6 @@ public static class ServiceInstaller
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("db")
                 , builder => { builder.EnableRetryOnFailure(2, TimeSpan.FromSeconds(5), null); }));
-
-        services.AddScoped<ICitiesRepository, CitiesRepository>();
-        
         
         var optionValue = services.BuildServiceProvider().GetRequiredService<IOptions<AuthenticationsOption>>().Value;
         services.AddIdentity<User, ApplicationRole>(
@@ -43,13 +40,15 @@ public static class ServiceInstaller
             .AddErrorDescriber<MultiLanguageIdentityErrorDescriber>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
-
-        services.ConfigureApplicationCookie(options =>
-        {
-            options.LoginPath = $"/Identity/Account/Login";
-            options.LogoutPath = $"/Identity/Account/Logout";
-            options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
-        });
+        
+        services.AddScoped<ICitiesRepository, CitiesRepository>();
+        services.AddScoped<ICompanyRepository, CompanyRepository>();
+        // services.ConfigureApplicationCookie(options =>
+        // {
+        //     options.LoginPath = $"/Identity/Account/Login";
+        //     options.LogoutPath = $"/Identity/Account/Logout";
+        //     options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+        // });
         return services;
     }
 }

@@ -11,6 +11,8 @@ public partial class CitiesController : PublicBaseController
     public async Task<ActionResult<ApiResponse<EditCityResponseDto>>> EditCity(Guid id,[FromBody] string name)
     {
         var result = await Mediator.Send(new EditCityCommand(id,name));
-        return Ok(ApiResponse.Ok(result));
+        if (!result.IsSuccess)
+            return BadRequest(ApiResponse.BadRequest(result.Message));
+        return Ok(ApiResponse.Ok((EditCityResponseDto)result.Data));
     }
 }

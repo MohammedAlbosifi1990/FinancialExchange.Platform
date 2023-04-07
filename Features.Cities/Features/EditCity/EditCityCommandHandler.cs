@@ -2,12 +2,14 @@
 using MediatR;
 using Microsoft.Extensions.Localization;
 using Shared.Core.Domain.Constants.Features;
+using Shared.Core.Domain.Entities;
 using Shared.Core.Domain.Exceptions;
+using Shared.Core.Domain.Models;
 using Shared.Core.Repositories;
 
 namespace Features.Cities.Features.EditCity;
 
-public sealed record EditCityCommandHandler : IRequestHandler<EditCityCommand, EditCityResponseDto>
+public sealed record EditCityCommandHandler : IRequestHandler<EditCityCommand, ApiResult<City>>
 {
     private readonly IStringLocalizer _localizer;
     private readonly ICitiesRepository _citiesRepo;
@@ -18,7 +20,7 @@ public sealed record EditCityCommandHandler : IRequestHandler<EditCityCommand, E
         _citiesRepo = citiesRepo;
     }
 
-    public async Task<EditCityResponseDto> Handle(EditCityCommand command, CancellationToken cancellationToken)
+    public async Task<ApiResult<City>> Handle(EditCityCommand command, CancellationToken cancellationToken)
     {
         var isExist = await _citiesRepo.Exist(c => c.Name == command.Name && c.Id != command.Id);
         if (isExist)
@@ -30,6 +32,6 @@ public sealed record EditCityCommandHandler : IRequestHandler<EditCityCommand, E
         
         city.Name = command.Name;
         await _citiesRepo.Commit(cancellationToken);
-        return city;
+        return ApiResult<City>.Success(city);
     }
 }

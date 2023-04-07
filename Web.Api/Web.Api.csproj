@@ -9,11 +9,16 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.4" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Features.Authentications\Features.Authentications.csproj" />
       <ProjectReference Include="..\Features.Cities\Features.Cities.csproj" />
+      <ProjectReference Include="..\Features.Companies\Features.Companies.csproj" />
       <ProjectReference Include="..\Shared.DataPersistence\Shared.DataPersistence.csproj" />
     </ItemGroup>
 

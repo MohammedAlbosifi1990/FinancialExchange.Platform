@@ -26,6 +26,10 @@ public static class FeaturesInstaller
             services.AddFeatures<Features.Authentications.ServiceInstaller>(configuration);
 
 
+        var companyFeature = myArray.FirstOrDefault(f => f.Name.ToLower().Equals("Companies".ToLower()));
+        if (companyFeature is { IsActive: true })
+            services.AddFeatures<Features.Companies.ServiceInstaller>(configuration);
+
         return services;
     }
 
@@ -46,10 +50,7 @@ public static class FeaturesInstaller
             services.AddValidatorsFromAssembly(typeof(TFeature).Assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
         }
-
         services.AddAutoMapper(typeof(TFeature));
-
-
         services.AddSingleton<IFeature>(feature);
     }
 }
