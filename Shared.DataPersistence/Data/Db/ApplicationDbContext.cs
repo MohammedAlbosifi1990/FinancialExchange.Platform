@@ -15,6 +15,7 @@ public class ApplicationDbContext : IdentityDbContext<User, ApplicationRole, Gui
 
     public DbSet<City> Cities { get; set; } = null!;
     public DbSet<Permission> Permissions { get; set; } = null!;
+    public DbSet<Company> Companies { get; set; } = null!;
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {

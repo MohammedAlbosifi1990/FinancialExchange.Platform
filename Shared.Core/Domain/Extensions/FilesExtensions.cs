@@ -35,16 +35,18 @@ public static partial class FilesExtensions
     public static async Task<(bool Success,string? Path)> SaveTo(this IFormFile? file, string path)
     {
         if (string.IsNullOrEmpty(path))
-            return (false, null);
+            return (false, "Path Is Required");
         
         if (file==null)
             return (false, "File Is Required");
+        
         var filename = file.RandomName();
         if (!filename.Success)
-            return (false,"Some Error With File Name 2222222222222222222222222222222");
+            return (false,"Some Error With File Name");
 
         if (!Directory.Exists(path))
             Directory.CreateDirectory(path);
+        
         var imagePath = Path.Combine(path, filename.Name);
         await using var stream =File.OpenWrite(imagePath);
         await file.CopyToAsync(stream);
@@ -54,7 +56,7 @@ public static partial class FilesExtensions
     public static async Task<(bool Success,string? Path)> Replace(this IFormFile? file, string path, string? oldFileName)
     {
         if (string.IsNullOrEmpty(path))
-            return (false, null);
+            return (false, "Path Is Required");
         
         if (file==null)
             return (false, "File Is Required");

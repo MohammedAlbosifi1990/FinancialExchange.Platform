@@ -6,12 +6,12 @@ public static class GuidExtensions
 {
     public static bool NotEmpty(this Guid? guid)
     {
-        return guid == null || guid == Guid.Empty;
+        return !(guid == null || guid == Guid.Empty);
     }
     
     public static bool NotEmpty(this Guid guid)
     {
-        return guid == Guid.Empty;
+        return !(guid == Guid.Empty);
     }
     
     

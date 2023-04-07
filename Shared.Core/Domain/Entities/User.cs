@@ -16,6 +16,7 @@ public class User : IdentityUser<Guid>, IBaseEntity
     public DateTime LastUpdate { get; set; }
 
     public ICollection<Permission>? Permissions { get; set; }
+    public ICollection<Company> Companies { get; set; }
 
     #region Confirmation Code
 
