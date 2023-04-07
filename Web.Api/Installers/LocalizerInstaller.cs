@@ -29,8 +29,7 @@ public static class LocalizerInstaller
         services.AddSingleton<IStringLocalizer, JsonStringLocalizer>();
         services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-        services.AddTransient<IEmailSender, EmailSender>();
-        services.AddTransient<ISmsSender, SmsSender>();
+        
         return services;
     }
 

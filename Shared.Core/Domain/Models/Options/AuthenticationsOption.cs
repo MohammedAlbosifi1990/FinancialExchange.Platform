@@ -5,7 +5,6 @@ public class AuthenticationsOption
 {
     public int AllowedPeriodForReLoginIn { get; set; }
     public int NumberOfTimesAllowedToLogIn { get; set; }
-    public int AllowedPeriodForConfirmationCodeExpirationAtInMinute { get; set; }
     public int ConfirmationCodeExpirationTimeInMinute { get; set; }
     public required string HashPassKey { get; set; }
     public int LockoutTimeInMinute { get; set; }

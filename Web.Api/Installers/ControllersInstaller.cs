@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData;
 using Shared.Core.Domain.Models;
-using Shared.Core.Domain.Models.Options;
 
 namespace Web.Api.Installers;
 
@@ -11,7 +10,7 @@ public static class ControllersInstaller
     public static IServiceCollection AddControllers(this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.Configure<List<PlatformMinimalVersionModel>>(configuration.GetSection("PlatformsMinimalVersions"));
+        
         services.AddControllers()
             .AddOData(options =>
                 options.Select().Filter().Count().OrderBy().Expand())
