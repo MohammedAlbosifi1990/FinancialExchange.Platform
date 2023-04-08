@@ -2,6 +2,6 @@
 
 namespace Shared.Core.Repositories;
 
-public interface IOfficesRepository : IGenericRepository<Office>
-{
-}
+// public interface IOfficesRepository : IRepository<Office>
+// {
+// }

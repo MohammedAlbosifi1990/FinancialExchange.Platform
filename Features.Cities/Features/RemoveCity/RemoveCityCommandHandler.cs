@@ -3,6 +3,7 @@ using Features.Cities.Features.EditCity;
 using MediatR;
 using Microsoft.Extensions.Localization;
 using Shared.Core.Domain.Constants.Features;
+using Shared.Core.Domain.Entities;
 using Shared.Core.Domain.Exceptions;
 using Shared.Core.Repositories;
 
@@ -11,9 +12,9 @@ namespace Features.Cities.Features.RemoveCity;
 public sealed record RemoveCityCommandHandler : IRequestHandler<RemoveCityCommand, bool>
 {
     private readonly IStringLocalizer _localizer;
-    private readonly ICitiesRepository _citiesRepo;
+    private readonly IRepository<City> _citiesRepo;
 
-    public RemoveCityCommandHandler(IStringLocalizer localizer, ICitiesRepository citiesRepo)
+    public RemoveCityCommandHandler(IStringLocalizer localizer, IRepository<City> citiesRepo)
     {
         _localizer = localizer;
         _citiesRepo = citiesRepo;

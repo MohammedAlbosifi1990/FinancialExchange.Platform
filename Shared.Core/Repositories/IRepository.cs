@@ -3,7 +3,7 @@ using Shared.Core.Domain.Entities;
 
 namespace Shared.Core.Repositories;
 
-public interface IGenericRepository<T>
+public interface IRepository<T>
     where T : class, IBaseEntity
 {
     Task<T?> SingleOrDefault(Guid id,bool asNoTracking=false);
@@ -27,8 +27,8 @@ public interface IGenericRepository<T>
         bool asNoTracking = false);
 
     Task<T> Add(T entity);
-    Task AddRange(List<T> entities);
+    Task AddRange(IEnumerable<T> entities);
     Task Remove(T entity);
-    Task RemoveRange(List<T> entities);
+    Task RemoveRange(IEnumerable<T> entities);
     Task Commit(CancellationToken cancellationToken=default);
 }

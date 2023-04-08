@@ -15,16 +15,18 @@ public class AddOfficeCommandValidator : AbstractValidator<AddOfficeCommand>
             .NotEmpty();
 
         RuleFor(officeCommand => officeCommand.Dto.Phone)
-            .NotEmpty()
-            .Must(phone => phone.IsValidPhone());
+            .MustPhone()
+            .NotEmpty();
+            // .Must(phone => phone.IsValidPhone());
 
-        RuleFor(officeCommand => officeCommand.Dto.Email)
-            .NotEmpty()
-            .Must(email => string.IsNullOrEmpty(email) || email.IsValidEmail());
+            RuleFor(officeCommand => officeCommand.Dto.Email)
+                .MustNullableEmail();
+            // .NotEmpty();
+            // .Must(email => string.IsNullOrEmpty(email) || email.IsValidEmail());
 
         RuleFor(officeCommand => officeCommand.Dto.WhatsAppPhone)
-            .NotEmpty()
-            .Must(whatsAppPhone => string.IsNullOrEmpty(whatsAppPhone) || whatsAppPhone.IsValidPhone());
+            .MustNullablePhone();
+            // .Must(whatsAppPhone => string.IsNullOrEmpty(whatsAppPhone) || whatsAppPhone.IsValidPhone());
 
         RuleFor(officeCommand => officeCommand.Dto.Latitude)
             .NotEmpty();

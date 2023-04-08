@@ -11,9 +11,9 @@ namespace Features.Companies.Features.Companies;
 public sealed record CompanyCommandHandler : IRequestHandler<CompanyCommand, ApiResult<Company>>
 {
     private readonly IStringLocalizer _localizer;
-    private readonly ICompanyRepository _companyRepo;
+    private readonly  IRepository<Company> _companyRepo;
 
-    public CompanyCommandHandler(IStringLocalizer localizer, ICompanyRepository companyRepo)
+    public CompanyCommandHandler(IStringLocalizer localizer, IRepository<Company> companyRepo)
     {
         _localizer = localizer;
         _companyRepo = companyRepo;

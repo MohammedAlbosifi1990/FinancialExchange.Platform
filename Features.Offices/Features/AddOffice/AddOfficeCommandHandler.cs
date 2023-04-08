@@ -14,10 +14,10 @@ namespace Features.Offices.Features.AddOffice;
 public sealed record AddOfficeCommandHandler : IRequestHandler<AddOfficeCommand, ApiResult<Office>>
 {
     private readonly IStringLocalizer _localizer;
-    private readonly IOfficesRepository _officesRepo;
+    private readonly  IRepository<Office> _officesRepo;
     private readonly IMapper _mapper;
 
-    public AddOfficeCommandHandler(IStringLocalizer localizer, IOfficesRepository officesRepo, IMapper mapper)
+    public AddOfficeCommandHandler(IStringLocalizer localizer,  IRepository<Office> officesRepo, IMapper mapper)
     {
         _localizer = localizer;
         _officesRepo = officesRepo;

@@ -4,7 +4,7 @@ using Shared.DataPersistence.Data.Db;
 
 namespace Shared.DataPersistence.Repositories;
 
-public class CitiesRepository : GenericRepository<City>, ICitiesRepository
-{
-    public CitiesRepository(ApplicationDbContext context) : base(context) { }
-}
+// public class CitiesRepository : Repository<City>, ICitiesRepository
+// {
+    // public CitiesRepository(ApplicationDbContext context) : base(context) { }
+// }

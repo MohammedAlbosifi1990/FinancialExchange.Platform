@@ -1,17 +1,18 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Shared.Core.Domain.Entities;
+using Shared.Core.Repositories;
 using Shared.DataPersistence.Data.Db;
 
 namespace Shared.DataPersistence.Repositories;
 
-public class GenericRepository<T> where T : class, IBaseEntity
+public class Repository<T> : IRepository<T> where T : class, IBaseEntity
 {
     protected readonly ApplicationDbContext DbContext;
     protected readonly DbSet<T> DbSet;
 
 
-    public GenericRepository(ApplicationDbContext dbContext)
+    public Repository(ApplicationDbContext dbContext)
     {
         DbContext = dbContext;
         DbSet = dbContext.Set<T>();
@@ -106,7 +107,7 @@ public class GenericRepository<T> where T : class, IBaseEntity
         return entryEntity.Entity;
     }
 
-    public async Task AddRange(List<T> entities)
+    public async Task AddRange(IEnumerable<T> entities)
     {
         await DbSet.AddRangeAsync(entities);
     }
@@ -117,7 +118,7 @@ public class GenericRepository<T> where T : class, IBaseEntity
         return Task.CompletedTask;
     }
 
-    public Task RemoveRange(List<T> entities)
+    public Task RemoveRange(IEnumerable<T> entities)
     {
         DbSet.RemoveRange(entities);
         return Task.CompletedTask;

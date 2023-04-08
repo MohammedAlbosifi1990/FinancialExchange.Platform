@@ -2,6 +2,6 @@
 
 namespace Shared.Core.Repositories;
 
-public interface ICompanyRepository : IGenericRepository<Company>
-{
-}
+// public interface ICompanyRepository : IRepository<Company>
+// {
+// }

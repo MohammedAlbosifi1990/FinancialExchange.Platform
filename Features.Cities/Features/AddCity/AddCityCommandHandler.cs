@@ -12,9 +12,9 @@ namespace Features.Cities.Features.AddCity;
 public sealed record AddCityCommandHandler : IRequestHandler<AddCityCommand, ApiResult<City>>
 {
     private readonly IStringLocalizer _localizer;
-    private readonly ICitiesRepository _citiesRepo;
+    private readonly IRepository<City> _citiesRepo;
 
-    public AddCityCommandHandler(IStringLocalizer localizer, ICitiesRepository citiesRepo)
+    public AddCityCommandHandler(IStringLocalizer localizer, IRepository<City> citiesRepo)
     {
         _localizer = localizer;
         _citiesRepo = citiesRepo;

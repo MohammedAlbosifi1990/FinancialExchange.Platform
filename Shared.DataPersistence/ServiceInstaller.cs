@@ -41,9 +41,10 @@ public static class ServiceInstaller
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
         
-        services.AddScoped<ICitiesRepository, CitiesRepository>();
-        services.AddScoped<ICompanyRepository, CompanyRepository>();
-        services.AddScoped<IOfficesRepository, OfficesRepository>();
+        // services.AddScoped<ICitiesRepository, CitiesRepository>();
+        // services.AddScoped<ICompanyRepository, CompanyRepository>();
+        // services.AddScoped<IOfficesRepository, OfficesRepository>();
+        services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
         // services.ConfigureApplicationCookie(options =>
         // {
         //     options.LoginPath = $"/Identity/Account/Login";

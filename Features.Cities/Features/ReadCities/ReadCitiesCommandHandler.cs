@@ -13,9 +13,9 @@ public sealed record RemoveCityCommandHandler : IRequestHandler<GetCityByIdComma
     IRequestHandler<GetAllCitiesCommand, ApiResult<List<City>>>
 {
     private readonly IStringLocalizer _localizer;
-    private readonly ICitiesRepository _citiesRepo;
+    private readonly IRepository<City> _citiesRepo;
 
-    public RemoveCityCommandHandler(IStringLocalizer localizer, ICitiesRepository citiesRepo)
+    public RemoveCityCommandHandler(IStringLocalizer localizer, IRepository<City> citiesRepo)
     {
         _localizer = localizer;
         _citiesRepo = citiesRepo;

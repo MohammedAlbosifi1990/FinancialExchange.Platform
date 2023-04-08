@@ -90,7 +90,7 @@ public static class SwaggerInstaller
                         return api.RelativePath != null && api.RelativePath.ToLower()
                             .StartsWith(value: RoutesConst.ProtectedPrefix.ToLower());
                     
-                    if (name.ToLower().Contains(value: RoutesConst.Authentications.AuthPrefix.ToLower()))
+                    if (name.ToLower().Contains(value:"Authentications".ToLower()))
                         return api.RelativePath != null && api.RelativePath.ToLower()
                             .StartsWith(value: RoutesConst.Authentications.AuthPrefix.ToLower());
                     

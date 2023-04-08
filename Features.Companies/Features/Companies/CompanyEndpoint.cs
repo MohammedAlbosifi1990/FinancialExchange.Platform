@@ -18,9 +18,9 @@ namespace Features.Companies.Features.Companies;
 public class CompanyController : PublicBaseController
 {
     private readonly IStringLocalizer _localizer;
-    private readonly ICompanyRepository _companyRepo;
+    private readonly IRepository<Company> _companyRepo;
 
-    public CompanyController(ICompanyRepository companyRepo, IStringLocalizer localizer)
+    public CompanyController(IRepository<Company> companyRepo, IStringLocalizer localizer)
     {
         _companyRepo = companyRepo;
         _localizer = localizer;
