@@ -7,6 +7,7 @@ using Shared.Core.Services.Emails;
 
 namespace Features.Authentications.Features.Registrations.EmailAndPassword;
 
+[Route(RoutesConst.Authentications.AuthPrefix)]
 public class RegistrationController : PublicBaseController
 {
     private readonly IEmailSender _emailSender;

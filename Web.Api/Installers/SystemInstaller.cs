@@ -18,7 +18,8 @@ public static class SystemInstaller
             .AddDataPersistence(configuration)
             .AddFeatures(configuration)
             .AddValidations(configuration)
-            .AddLocalizer(configuration);
+            .AddLocalizer(configuration)
+            .AddServices(configuration);
         return services;
     }
 
@@ -42,7 +43,6 @@ public static class SystemInstaller
         if (configuration.GetValue<bool>("PlatformsMinimalVersions:Enable"))
             app.UseMiddleware<PlatFromMinimalsVersionsMiddleware>();
 
-        
 
         // app.UseHttpsRedirection();
         app.UseAuthentication();
@@ -50,7 +50,7 @@ public static class SystemInstaller
 
         foreach (var feature in app.Services.GetRequiredService<IEnumerable<IFeature>>())
             feature.UseService(app);
-        
+
         app.MapControllers();
         return app;
     }

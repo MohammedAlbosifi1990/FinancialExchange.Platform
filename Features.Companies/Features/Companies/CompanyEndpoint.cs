@@ -11,7 +11,7 @@ using Shared.Core.Domain.Extensions;
 using Shared.Core.Domain.Models;
 using Shared.Core.Repositories;
 
-namespace Features.Companies.Features.AddCompany;
+namespace Features.Companies.Features.Companies;
 
 //TODO Is All Authorize
 // [Authorize]
@@ -36,7 +36,7 @@ public class CompanyController : PublicBaseController
     }
 
 
-    [HttpGet]
+    [HttpGet("Search")]
     public async Task<ActionResult<ApiResponse<IEnumerable<CompanyResponseDto>>>> SearchCompany(string? name)
     {
         var queryCompany = await _companyRepo.AsQueryable();
@@ -57,7 +57,7 @@ public class CompanyController : PublicBaseController
         return Ok(ApiResponse<IEnumerable<CompanyResponseDto>>.Ok(companiesList));
     }
 
-    [HttpGet]
+    [HttpGet("SearchForOther")]
     public async Task<ActionResult<ApiResponse<IEnumerable<CompanyResponseDto>>>> SearchOtherCompany(string? name)
     {
         var queryCompany = await _companyRepo.AsQueryable();

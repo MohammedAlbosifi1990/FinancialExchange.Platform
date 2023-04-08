@@ -5,6 +5,7 @@ using Shared.Core.Domain.Models;
 
 namespace Features.Authentications.Features.Password.ForgetPassword;
 
+[Route(RoutesConst.Authentications.AuthPrefix)]
 public partial class PasswordController : PublicBaseController
 {
     [HttpPost(RoutesConst.Authentications.ForGetPassword)]

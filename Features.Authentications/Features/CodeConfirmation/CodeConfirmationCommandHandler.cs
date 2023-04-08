@@ -1,6 +1,7 @@
 ﻿using Features.Authentications.Domain.Enums;
 using Features.Authentications.Domain.Models.Authentications.Confirmations;
 using MediatR;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;

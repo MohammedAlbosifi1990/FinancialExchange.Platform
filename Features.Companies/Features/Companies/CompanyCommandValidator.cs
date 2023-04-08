@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using Shared.Core.Domain.Extensions;
 
-namespace Features.Companies.Features.AddCompany;
+namespace Features.Companies.Features.Companies;
 
-public class AddCompanyCommandValidator: AbstractValidator<AddCompanyCommand>
+public class CompanyCommandValidator: AbstractValidator<CompanyCommand>
 {
-    public AddCompanyCommandValidator()
+    public CompanyCommandValidator()
     {
         RuleFor(c => c.Name)
             .NotEmpty();

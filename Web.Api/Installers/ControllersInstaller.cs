@@ -12,8 +12,6 @@ public static class ControllersInstaller
     {
         
         services.AddControllers()
-            .AddOData(options =>
-                options.Select().Filter().Count().OrderBy().Expand())
             .AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles)
             .ConfigureApiBehaviorOptions(options =>

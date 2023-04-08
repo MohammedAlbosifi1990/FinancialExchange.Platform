@@ -17,7 +17,7 @@ public static class ServicesInstaller
         services.Configure<List<PlatformMinimalVersionModel>>(configuration.GetSection("PlatformsMinimalVersions"));
         
         
-        services.Configure<FcmNotificationSetting>(configuration.GetSection("FcmNotification"));
+        services.Configure<PushNotification.FcmNotificationSetting>(configuration.GetSection("FcmNotification"));
         services.AddTransient<IPushNotification, PushNotification>();
         
         services.Configure<SmtpSettingsOption>(configuration.GetSection("SmtpSettings"));

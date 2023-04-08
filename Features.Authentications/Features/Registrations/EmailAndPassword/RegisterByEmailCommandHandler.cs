@@ -53,7 +53,7 @@ public sealed record RegisterByEmailCommandHandler : IRequestHandler<RegisterByE
             HashPass = command.Password.EncryptString(_authenticationsOption.HashPassKey),
             SecurityStamp = Guid.NewGuid().ToString()
         };
-
+        
         var code = registerUser.SetConfirmationCode();
 
         var result = await _userManager.CreateAsync(registerUser, command.Password);

@@ -2,5 +2,5 @@
 
 public interface IPushNotification
 {
-    Task<ResponseModel> Push(NotificationModel notification);
+    Task<bool> Push(string[] deviceTokens, string title, string body, object data);
 }

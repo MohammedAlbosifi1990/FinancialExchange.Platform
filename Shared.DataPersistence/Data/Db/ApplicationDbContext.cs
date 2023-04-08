@@ -7,15 +7,16 @@ namespace Shared.DataPersistence.Data.Db;
 
 public class ApplicationDbContext : IdentityDbContext<User, ApplicationRole, Guid>
 {
-    // dotnet ef migrations add RefactorUserEntity -s="../Web.Api" -o=Migrations
+    // dotnet ef migrations add AddOfficeEntity -s="../Web.Api" -o=Migrations
     // dotnet ef DataBase Update -s="../Web.Api" 
 
-    // dotnet ef migrations add AddPermissionEntity -p="../Infrastructure.DataPersistence" -o=Migrations
+    // dotnet ef migrations add AddOfficeEntity -p="../Infrastructure.DataPersistence" -o=Migrations
     // dotnet ef DataBase Update -p="../Infrastructure.DataPersistence" 
 
     public DbSet<City> Cities { get; set; } = null!;
     public DbSet<Permission> Permissions { get; set; } = null!;
     public DbSet<Company> Companies { get; set; } = null!;
+    public DbSet<Office> Offices { get; set; } = null!;
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {

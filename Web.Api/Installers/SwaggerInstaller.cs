@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Any;
+﻿using System.Reflection;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Interfaces;
 using Microsoft.OpenApi.Models;
 using Shared.Core.Domain.Constants;
@@ -14,6 +15,17 @@ public static class SwaggerInstaller
             .AddSwaggerGen(setupAction: options =>
             {
                 options.EnableAnnotations();
+                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+
+
+                    options.SwaggerDoc(name: "Authentications", info: new OpenApiInfo
+                {
+                    Title = "Authentications Api",
+                    Version = "Authentications.Api.V1",
+                    Description = "This API features all Authentications available endpoints showing different API features."
+                });
+                
                 options.SwaggerDoc(name: "Other", info: new OpenApiInfo
                 {
                     Title = "Other Api",
@@ -77,10 +89,16 @@ public static class SwaggerInstaller
                     if (name.ToLower().Contains(value: "Protected".ToLower()))
                         return api.RelativePath != null && api.RelativePath.ToLower()
                             .StartsWith(value: RoutesConst.ProtectedPrefix.ToLower());
-
+                    
+                    if (name.ToLower().Contains(value: RoutesConst.Authentications.AuthPrefix.ToLower()))
+                        return api.RelativePath != null && api.RelativePath.ToLower()
+                            .StartsWith(value: RoutesConst.Authentications.AuthPrefix.ToLower());
+                    
+                  
                     return api.RelativePath != null
                            && !api.RelativePath.ToLower().StartsWith(RoutesConst.ProtectedPrefix.ToLower())
-                           && !api.RelativePath.ToLower().StartsWith(RoutesConst.PublicPrefix.ToLower());
+                           && !api.RelativePath.ToLower().StartsWith(RoutesConst.PublicPrefix.ToLower())
+                           && !api.RelativePath.ToLower().StartsWith(RoutesConst.Authentications.AuthPrefix.ToLower());
                 });
             });
 
@@ -95,6 +113,7 @@ public static class SwaggerInstaller
         app.UseSwagger();
         app.UseSwaggerUI(setupAction: c =>
         {
+            c.SwaggerEndpoint(url: "/swagger/Authentications/swagger.json", name: "Authentications API");
             c.SwaggerEndpoint(url: "/swagger/Public/swagger.json", name: "Public API ");
             c.SwaggerEndpoint(url: "/swagger/Protected/swagger.json", name: "Protected API");
             c.SwaggerEndpoint(url: "/swagger/Other/swagger.json", name: "Other API");

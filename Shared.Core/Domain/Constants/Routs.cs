@@ -11,6 +11,7 @@ public abstract class RoutesConst
 
     public abstract class Authentications
     {
+        public const string AuthPrefix = $"{RootPrefix}/Authentications";
         public const string SignIn = $"SignIn";
         public const string SignInByEmail = $"SignInByEmail";
         public const string SignInByUserName = $"SignInByUserName";

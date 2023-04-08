@@ -1,4 +1,4 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Text;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
@@ -7,6 +7,7 @@ namespace Shared.Core.Services.PushNotification;
 public class PushNotification : IPushNotification
 {
     private readonly FcmNotificationSetting _fcmNotificationSetting;
+    private static readonly Uri FireBasePushNotificationsUrl = new Uri("https://fcm.googleapis.com/fcm/send");
 
     public PushNotification(IOptions<FcmNotificationSetting> settings)
     {
@@ -14,103 +15,80 @@ public class PushNotification : IPushNotification
     }
 
 
-    public Task<ResponseModel> Push(NotificationModel notification)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="deviceTokens">List of all devices assigned to a user</param>
+    /// <param name="title">Title of Notification</param>
+    /// <param name="body">Description of Notification</param>
+    /// <param name="data">Object with all extra information you want to send hidden in the Notification</param>
+    /// <returns></returns>
+    public async Task<bool> Push(string[] deviceTokens, string title, string body, object data)
     {
-        var response = new ResponseModel();
-        try
+        var sent = false;
+
+        if (!deviceTokens.Any()) return sent;
+
+        var messageInformation = new Message()
         {
-            if (notification.IsAndroidDevice)
+            Notification = new Notification()
             {
-                /* FCM Sender (Android Device) */
-                // FcmSettings settings = new FcmSettings()
-                // {
-                // SenderId = _fcmNotificationSetting.SenderId,
-                // ServerKey = _fcmNotificationSetting.ServerKey
-                // };
-                var httpClient = new HttpClient();
+                Title = title,
+                Text = body
+            },
+            Data = data,
+            RegistrationIds = deviceTokens
+        };
 
-                var authorizationKey = $"key={_fcmNotificationSetting.ServerKey}";
-                // var deviceToken = notificationModel.DeviceId;
+        var jsonMessage = JsonConvert.SerializeObject(messageInformation);
 
-                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", authorizationKey);
-                httpClient.DefaultRequestHeaders.Accept
-                    .Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        /*
+             ------ JSON STRUCTURE ------
+             {
+                Notification: {
+                                Title: "",
+                                Text: ""
+                                },
+                Data: {
+                        action: "Play",
+                        playerId: 5
+                        },
+                RegistrationIds = ["id1", "id2"]
+             }
+             ------ JSON STRUCTURE ------
+             */
 
-                // var dataPayload = new GoogleNotification.DataPayload
-                // {
-                //     Title = notificationModel.Title,
-                //     Body = notificationModel.Body
-                // };
+        //Create request to Firebase API
+        var request = new HttpRequestMessage(HttpMethod.Post, FireBasePushNotificationsUrl);
 
-                // var notification = new GoogleNotification
-                // {
-                //     Data = dataPayload,
-                //     Notification = dataPayload
-                // };
+        request.Headers.TryAddWithoutValidation("Authorization", "key=" + _fcmNotificationSetting.ServerKey);
+        request.Content = new StringContent(jsonMessage, Encoding.UTF8, "application/json");
 
-                // var fcm = new FcmSender(settings, httpClient);
-                // var fcmSendResponse = await fcm.SendAsync(deviceToken, notification);
+        using var client = new HttpClient();
+        var result = await client.SendAsync(request);
+        sent = sent && result.IsSuccessStatusCode;
 
-                // if (fcmSendResponse.IsSuccess())
-                // {
-                // response.IsSuccess = true;
-                // response.Message = "Notification sent successfully";
-                // return response;
-                // }
-                // else
-                // {
-                // response.IsSuccess = false;
-                // response.Message = fcmSendResponse.Results[0].Error;
-                // return response;
-                // }
-            }
-            // else
-            // {
-            /* Code here for APN Sender (iOS Device) */
-            //var apn = new ApnSender(apnSettings, httpClient);
-            //await apn.SendAsync(notification, deviceToken);
-            // }
-
-            return Task.FromResult(response);
-        }
-        catch (Exception)
-        {
-            response.IsSuccess = false;
-            response.Message = "Something went wrong";
-            return Task.FromResult(response);
-        }
+        return sent;
     }
-}
 
-public class ResponseModel
-{
-    [JsonProperty("isSuccess")] public bool IsSuccess { get; set; }
-    [JsonProperty("message")] public string Message { get; set; } = null!;
-}
 
-public class NotificationModel
-{
-    [JsonProperty("deviceId")] public string DeviceId { get; set; } = null!;
-    [JsonProperty("isAndroidDevice")] public bool IsAndroidDevice { get; set; }
-    [JsonProperty("title")] public string Title { get; set; } = null!;
-    [JsonProperty("body")] public string Body { get; set; } = null!;
-}
-
-public class GoogleNotification
-{
-    public class DataPayload
+    private class Message
     {
-        [JsonProperty("title")] public string Title { get; set; } = null!;
-        [JsonProperty("body")] public string Body { get; set; } = null!;
+        public string[] RegistrationIds { get; set; } = null!;
+        public Notification Notification { get; set; } = null!;
+        public object Data { get; set; } = null!;
     }
 
-    [JsonProperty("priority")] public string Priority { get; set; } = "high";
-    [JsonProperty("data")] public DataPayload Data { get; set; } = null!;
-    [JsonProperty("notification")] public DataPayload Notification { get; set; } = null!;
-}
+    private class Notification
+    {
+        public string Title { get; set; } = null!;
+        public string Text { get; set; } = null!;
+    }
 
-public class FcmNotificationSetting
-{
-    public string SenderId { get; set; } = null!;
-    public string ServerKey { get; set; } = null!;
+
+    public class FcmNotificationSetting
+    {
+        public string SenderId { get; set; } = null!;
+        public string ServerKey { get; set; } = null!;
+    }
 }

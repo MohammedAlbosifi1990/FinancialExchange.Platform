@@ -8,6 +8,7 @@ using Shared.Core.Domain.Models;
 
 namespace Features.Authentications.Features.Registrations.PhoneAndPassword;
 
+[Route(RoutesConst.Authentications.AuthPrefix)]
 public class RegistrationController : PublicBaseController
 {
     private readonly ISmsSender _smsSender;

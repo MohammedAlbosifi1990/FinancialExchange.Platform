@@ -43,6 +43,7 @@ public static class ServiceInstaller
         
         services.AddScoped<ICitiesRepository, CitiesRepository>();
         services.AddScoped<ICompanyRepository, CompanyRepository>();
+        services.AddScoped<IOfficesRepository, OfficesRepository>();
         // services.ConfigureApplicationCookie(options =>
         // {
         //     options.LoginPath = $"/Identity/Account/Login";

@@ -6,10 +6,23 @@ using Shared.Core.Domain.Constants;
 using Shared.Core.Domain.Models;
 
 namespace Features.Authentications.Features.CodeConfirmation;
-
-[Authorize]
+[Route(RoutesConst.Authentications.AuthPrefix)]
 public partial class ConfirmationController : PublicBaseController
 {
+    /// <summary>
+    /// Creates a TodoItem.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns>A newly created TodoItem</returns>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     POST /Todo
+    ///     {
+    ///        "id": 1,
+    ///        "name": "Item #1",
+    ///        "isComplete": true
+    ///     }
     [HttpPost(RoutesConst.Authentications.Confirm)]
     public async Task<ActionResult<ApiResponse>> SignInByEmail([FromBody] CodeConfirmationCommand requestDto)
     {

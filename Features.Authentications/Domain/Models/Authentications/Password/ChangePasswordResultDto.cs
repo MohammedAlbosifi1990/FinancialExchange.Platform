@@ -1,7 +1,5 @@
 ﻿
-using Features.Authentications.Domain.Models.Authentications.Confirmations;
-
-namespace Features.Authentications.Domain.Models.Authentications.ChangePassword;
+namespace Features.Authentications.Domain.Models.Authentications.Password;
 
 public class ChangePasswordResultDto
 {

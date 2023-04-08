@@ -1,4 +1,4 @@
-﻿using Features.Authentications.Domain.Models.Authentications.ChangePassword;
+﻿using Features.Authentications.Domain.Models.Authentications.Password;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;

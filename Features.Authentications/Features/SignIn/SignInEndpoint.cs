@@ -8,6 +8,7 @@ using Shared.Core.Domain.Models;
 
 namespace Features.Authentications.Features.SignIn;
 
+[Route(RoutesConst.Authentications.AuthPrefix)]
 public class SignInController : PublicBaseController
 {
     [HttpPost(RoutesConst.Authentications.SignInByEmail)]
