@@ -6,7 +6,7 @@ using Shared.Core.Domain.Constants;
 using Shared.Core.Domain.Models;
 using Shared.Core.Services.Emails;
 
-namespace Features.Authentications.Features.ResendConfirmation;
+namespace Features.Authentications.Features.Confirmations.ResendConfirmation;
 [Route(RoutesConst.Authentications.AuthPrefix)]
 public partial class ConfirmationController : PublicBaseController
 {

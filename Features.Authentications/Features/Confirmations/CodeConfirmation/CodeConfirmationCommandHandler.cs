@@ -7,20 +7,18 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Shared.Core.Domain.Constants;
 using Shared.Core.Domain.Entities;
-using Shared.Core.Domain.Enum;
 using Shared.Core.Domain.Exceptions;
 using Shared.Core.Domain.Models.Options;
 
-namespace Features.Authentications.Features.ResendConfirmation;
+namespace Features.Authentications.Features.Confirmations.CodeConfirmation;
 
-public sealed record
-    ResendConfirmationCommandHandler : IRequestHandler<ResendConfirmationCommand, ResendConfirmationCodeResultDto>
+public sealed record CodeConfirmationCommandHandler : IRequestHandler<CodeConfirmationCommand, ConfirmationOtpResultDto>
 {
     private readonly UserManager<User> _userManager;
     private readonly AuthenticationsOption _authenticationsOption;
     private readonly IStringLocalizer _localizer;
 
-    public ResendConfirmationCommandHandler(UserManager<User> userManager,
+    public CodeConfirmationCommandHandler(UserManager<User> userManager,
         IOptions<AuthenticationsOption> authenticationsOption,
         IStringLocalizer localizer)
     {
@@ -29,42 +27,41 @@ public sealed record
         _localizer = localizer;
     }
 
-    public async Task<ResendConfirmationCodeResultDto> Handle(ResendConfirmationCommand command,
+    public async Task<ConfirmationOtpResultDto> Handle(CodeConfirmationCommand command,
         CancellationToken cancellationToken)
     {
         var user = command.Type switch
         {
-            CredentialType.EmailAndPassword => await _userManager.FindByEmailAsync(command.EmailOrPhone),
-            CredentialType.UserNameAndPassword => await _userManager.FindByNameAsync(command.EmailOrPhone),
-            CredentialType.PhoneAndPassword or CredentialType.PhoneAndOtpCode => await
-                _userManager.Users.SingleOrDefaultAsync(u => u.PhoneNumber == command.EmailOrPhone,
+            CredentialType.EmailAndPassword => await _userManager.FindByEmailAsync(command.Identity),
+            CredentialType.UserNameAndPassword => await _userManager.FindByNameAsync(command.Identity),
+            CredentialType.PhoneAndPassword or CredentialType.PhoneAndOtpCode =>
+                await _userManager.Users.SingleOrDefaultAsync(u => u.PhoneNumber == command.Identity,
                     cancellationToken: cancellationToken),
             _ => throw new ArgumentOutOfRangeException(nameof(CredentialType), command.Type, null)
         };
 
         if (user == null)
-            throw BadRequestException.Throw(_localizer[AuthenticationsConst.UserNotExist]);
+            throw NotFoundException.Throw(_localizer[AuthenticationsConst.UserNotExist]);
 
         if (user.IsDisabled)
-        {
-            await _userManager.AccessFailedAsync(user);
             throw BadRequestException.Throw(_localizer[AuthenticationsConst.UserAccountIsDisabled]);
-        }
 
         if (await _userManager.IsLockedOutAsync(user))
             throw BadRequestException.Throw(_localizer[AuthenticationsConst.UserAccountIsLocked]);
 
-        var code = user.SetConfirmationCode(
-            command.Type switch
-            {
-                CredentialType.EmailAndPassword or CredentialType.UserNameAndPassword => ConfirmationCodeFor.Email,
-                CredentialType.PhoneAndPassword or CredentialType.PhoneAndOtpCode => ConfirmationCodeFor.Phone,
-                _ => throw BadRequestException.Throw("Some Error")
+        if (!user.IsValidConfirmationCode(command.Secret, out var error,
+                _authenticationsOption.ConfirmationCodeExpirationTimeInMinute))
+        {
+            await _userManager.AccessFailedAsync(user);
+            throw BadRequestException.Throw(_localizer[error]);
+        }
 
-            }
-        );
-        
+        if (command.Type is CredentialType.EmailAndPassword or CredentialType.UserNameAndPassword)
+            user.EmailConfirmed = true;
+        else
+            user.PhoneNumberConfirmed = true;
+
         await _userManager.UpdateAsync(user);
-        return ResendConfirmationCodeResultDto.Success(code);
+        return ConfirmationOtpResultDto.Success();
     }
 }

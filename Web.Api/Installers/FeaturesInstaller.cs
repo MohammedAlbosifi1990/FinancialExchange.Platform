@@ -33,6 +33,10 @@ public static class FeaturesInstaller
         var officesFeature = myArray.FirstOrDefault(f => f.Name.ToLower().Equals("Offices".ToLower()));
         if (officesFeature is { IsActive: true })
             services.AddFeatures<Features.Offices.ServiceInstaller>(configuration);
+        
+        var transactionsFeature = myArray.FirstOrDefault(f => f.Name.ToLower().Equals("Transactions".ToLower()));
+        if (transactionsFeature is { IsActive: true })
+            services.AddFeatures<Features.Transactions.ServiceInstaller>(configuration);
 
         return services;
     }

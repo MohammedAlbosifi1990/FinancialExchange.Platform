@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OData;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Shared.Core.Domain.Models;
 
 namespace Web.Api.Installers;
@@ -19,8 +19,12 @@ public static class ControllersInstaller
                 options.InvalidModelStateResponseFactory = actionContext =>
                 {
                     var modelState = actionContext.ModelState.Values;
-                    var state = modelState.FirstOrDefault();
-                    var error = state!.Errors[0].ErrorMessage;
+                    var state = modelState.FirstOrDefault(m=>m.ValidationState==ModelValidationState.Invalid);
+                    string error;
+                    if (state!=null)
+                        error = state.Errors.Any() ? state!.Errors[0].ErrorMessage : "UnKnow Validation Error";
+                    else
+                        error = "UnKnow Validation Error";
 
                     return new BadRequestObjectResult(ApiResponse.BadRequest(error));
                 };

@@ -1,5 +1,4 @@
-﻿using Features.Authentications.Features.ResendConfirmation;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Features.Authentications.Features.Test;
 

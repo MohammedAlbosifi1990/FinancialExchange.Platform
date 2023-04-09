@@ -1,10 +1,11 @@
 using AutoMapper;
 using Features.Offices.Domain;
+using Features.Offices.Features.AddOffice;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Core.Base;
 using Shared.Core.Domain.Models;
 
-namespace Features.Offices.Features.AddOffice;
+namespace Features.Offices.Features.EditOffice;
 
 public class OfficesController : PublicBaseController
 {
@@ -14,10 +15,10 @@ public class OfficesController : PublicBaseController
     {
         _mapper = mapper;
     }
-    [HttpPost]
-    public async Task<ActionResult<ApiResponse<OfficeResponseDto>>> AddOffice([FromForm] AddOfficeRequestDto requestDto)
+    [HttpPut("{id:guid}")]
+    public async Task<ActionResult<ApiResponse<OfficeResponseDto>>> EditOffice(Guid id,[FromForm] EditOfficeRequestDto requestDto)
     {
-        var result = await Mediator.Send(new AddOfficeCommand(requestDto));
+        var result = await Mediator.Send(new EditOfficeCommand(id,requestDto));
         if (!result.IsSuccess)
             return BadRequest(ApiResponse.BadRequest(result.Message));
 

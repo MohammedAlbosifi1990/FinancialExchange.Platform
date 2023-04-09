@@ -1,6 +1,5 @@
 ﻿using Features.Authentications.Domain.Enums;
 using Features.Authentications.Domain.Models.Authentications.Confirmations;
-using Features.Authentications.Features.ResendConfirmation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

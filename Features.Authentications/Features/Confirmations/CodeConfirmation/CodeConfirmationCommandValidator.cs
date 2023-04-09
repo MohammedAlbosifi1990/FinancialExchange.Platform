@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Features.Authentications.Features.CodeConfirmation;
+namespace Features.Authentications.Features.Confirmations.CodeConfirmation;
 
 public class CodeConfirmationCommandValidator: AbstractValidator<CodeConfirmationCommand>
 {

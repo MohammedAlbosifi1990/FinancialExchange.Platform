@@ -77,13 +77,17 @@ public static partial class FilesExtensions
         return (true,imagePath);
     }
 
-    public static  (bool Success, string? Error) Remove(this string path)
+    public static Task<(bool, string)> RemoveFile(this string? path)
     {
+        if (string.IsNullOrEmpty(path))
+            return Task.FromResult((false, "File NotFound"));
+
         if (!File.Exists(path))
-            return (false, "File NotFound");
+            return Task.FromResult((false, "File NotFound"));
         File.Delete(path);
-        return (true, null);
+        return Task.FromResult((true,""));
     }
+    
 
     public static bool IsImage(this string name)
     {

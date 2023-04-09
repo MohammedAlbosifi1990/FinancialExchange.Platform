@@ -26,10 +26,27 @@ public sealed record AddOfficeCommandHandler : IRequestHandler<AddOfficeCommand,
 
     public async Task<ApiResult<Office>> Handle(AddOfficeCommand command, CancellationToken cancellationToken)
     {
-        var isExist = await _officesRepo.Exist(c => c.Name == command.Dto.Name && c.CompanyId == command.Dto.CompanyId);
+        var isExist = await _officesRepo.Exist(c => c.Name == command.Dto.Name 
+                                                    && c.CompanyId == command.Dto.CompanyId);
         if (isExist)
             throw FoundException.Throw(_localizer[CitiesConst.CityIsAlreadyExist]);
 
+        var existOffice = await _officesRepo.SingleOrDefault(c => c.Phone == command.Dto.Phone ||
+                                                (!string.IsNullOrEmpty(c.WhatsAppPhone) &&
+                                                 c.WhatsAppPhone ==
+                                                 command.Dto.WhatsAppPhone));
+        if (existOffice!=null)
+        {
+            if (command.Dto.Phone== existOffice.Phone)
+                throw FoundException.Throw(_localizer[CitiesConst.CityIsAlreadyExist]);
+            if ((!string.IsNullOrEmpty(existOffice.WhatsAppPhone) &&
+                 existOffice.WhatsAppPhone ==
+                 command.Dto.WhatsAppPhone))
+                throw FoundException.Throw(_localizer[CitiesConst.CityIsAlreadyExist]);
+            throw FoundException.Throw(_localizer[CitiesConst.CityIsAlreadyExist]);
+        }
+
+        
         string? logoPath = null;
         if (command.Dto.Logo != null)
         {
@@ -41,22 +58,10 @@ public sealed record AddOfficeCommandHandler : IRequestHandler<AddOfficeCommand,
 
         var officeInput = _mapper.Map<Office>(command.Dto);
         officeInput.Logo = logoPath;
+        officeInput.ReferenceNumber = Guid.NewGuid().ToString()[..10].Replace("-","");
+        if (command.Dto.UsePhoneAsWhatsApp)
+            officeInput.WhatsAppPhone = command.Dto.Phone;
         var office = await _officesRepo.Add(officeInput);
-        // var office = await _officesRepo.Add(new Office()
-        // {
-        //     Name = command.Dto.Name,
-        //     Address = command.Dto.Address,
-        //     Phone = command.Dto.Phone,
-        //     ReferenceNumber = Guid.NewGuid().ToString()[..10].Replace("-",""),
-        //     Logo = logoPath,
-        //     CompanyId = command.Dto.CompanyId,
-        //     Email = command.Dto.Email,
-        //     Longitude = command.Dto.Longitude,
-        //     CityId = command.Dto.CityId,
-        //     Latitude = command.Dto.Latitude,
-        //     WhatsAppPhone = command.Dto.WhatsAppPhone,
-        //     Balance = 0
-        // });
         await _officesRepo.Commit(cancellationToken);
         return ApiResult<Office>.Success(office);
     }

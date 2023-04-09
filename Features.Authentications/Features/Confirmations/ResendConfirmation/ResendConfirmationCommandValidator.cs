@@ -1,7 +1,6 @@
-﻿using Features.Authentications.Features.SignIn;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace Features.Authentications.Features.ResendConfirmation;
+namespace Features.Authentications.Features.Confirmations.ResendConfirmation;
 
 public class ResendConfirmationCommandValidator: AbstractValidator<ResendConfirmationCommand>
 {

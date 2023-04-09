@@ -29,10 +29,10 @@ public class AddOfficeCommandValidator : AbstractValidator<AddOfficeCommand>
             // .Must(whatsAppPhone => string.IsNullOrEmpty(whatsAppPhone) || whatsAppPhone.IsValidPhone());
 
         RuleFor(officeCommand => officeCommand.Dto.Latitude)
-            .NotEmpty();
-            
+            .MustDouble();
+
         RuleFor(officeCommand => officeCommand.Dto.Longitude)
-            .NotEmpty();
+            .MustDouble();
         
         RuleFor(officeCommand => officeCommand.Dto.Address)
             .NotEmpty();

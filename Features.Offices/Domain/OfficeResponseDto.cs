@@ -2,7 +2,7 @@
 
 namespace Features.Offices.Domain;
 
-public class AddOfficeResponseDto
+public class OfficeResponseDto
 {
     public Guid Id { get; set; }
     public required string Name { get; set; }

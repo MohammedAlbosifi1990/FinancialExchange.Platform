@@ -23,6 +23,7 @@
       <ProjectReference Include="..\Features.Cities\Features.Cities.csproj" />
       <ProjectReference Include="..\Features.Companies\Features.Companies.csproj" />
       <ProjectReference Include="..\Features.Offices\Features.Offices.csproj" />
+      <ProjectReference Include="..\Features.Transactions\Features.Transactions.csproj" />
       <ProjectReference Include="..\Shared.DataPersistence\Shared.DataPersistence.csproj" />
     </ItemGroup>
 

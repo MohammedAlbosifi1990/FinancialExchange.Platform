@@ -2,7 +2,7 @@
 using Features.Authentications.Domain.Models.Authentications.Confirmations;
 using MediatR;
 
-namespace Features.Authentications.Features.CodeConfirmation;
+namespace Features.Authentications.Features.Confirmations.CodeConfirmation;
 
 public sealed record CodeConfirmationCommand(
     string Identity,

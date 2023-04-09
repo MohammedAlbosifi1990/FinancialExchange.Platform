@@ -28,5 +28,6 @@ public abstract class RoutesConst
         public const string ChangePassword = $"ChangePassword";
         public const string ResetPassword = $"ResetPassword";
         public const string ForGetPassword = $"ForGetPassword";
+        public const string Logout = $"Logout";
     }
 }
