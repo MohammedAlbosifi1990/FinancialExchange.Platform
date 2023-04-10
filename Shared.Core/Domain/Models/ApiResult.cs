@@ -44,4 +44,13 @@ public class ApiResult<T> : ApiResult
             Message = message
         };
     }
+    public new static ApiResult<T> Failed(string message, int? statusCode = StatusCodes.Status400BadRequest)
+    {
+        return new ApiResult<T>()
+        {
+            IsSuccess = false,
+            StatusCode = statusCode,
+            Message = message
+        };
+    }
 }
