@@ -29,7 +29,7 @@ public partial class ConfirmationController : PublicBaseController
             return Ok(ApiResponse.BadRequest(result.Message));
 
         if (requestDto.Type is CredentialType.EmailAndPassword or CredentialType.UserNameAndPassword)
-            await _emailSender.SendEmail(requestDto.EmailOrPhone,result.Code!);
+            await _emailSender.SendEmail(requestDto.EmailOrPhone,result.Code!, "Resend Activation Code");
         else
             await _smsSender.SendSms(requestDto.EmailOrPhone,result.Code!);
 

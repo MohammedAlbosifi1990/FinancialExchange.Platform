@@ -24,7 +24,7 @@ public class RegistrationController : PublicBaseController
 
         if (!result.IsSuccess) return Ok(ApiResponse.BadRequest(result.Message));
         
-        await _emailSender.SendEmail(requestDto.Email, result.ConfirmationCode!);
+        await _emailSender.SendEmail(requestDto.Email, result.ConfirmationCode!, "Email Registration");
         return Ok(ApiResponse.Ok());
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using EmailSender.Library.Installers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData;
 using Shared.Core.Contract.Services.Sms;
@@ -20,9 +21,9 @@ public static class ServicesInstaller
         services.Configure<PushNotification.FcmNotificationSetting>(configuration.GetSection("FcmNotification"));
         services.AddTransient<IPushNotification, PushNotification>();
         
-        services.Configure<SmtpSettingsOption>(configuration.GetSection("SmtpSettings"));
-        services.AddTransient<IEmailSender, EmailSender>();
-        
+        services.ConfigureEmailSender();
+
+
         services.AddTransient<ISmsSender, SmsSender>();
         
         return services;

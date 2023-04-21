@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Api", "Web.Api\Web.Api.csproj", "{F57B1FB7-B3FA-4717-B3D7-0CEF6524ABE2}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Api", "Web.Api\Web.Api.csproj", "{F57B1FB7-B3FA-4717-B3D7-0CEF6524ABE2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{F757175B-F96C-4007-A92C-38D75C8129C5}"
 EndProject
@@ -8,19 +11,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Features", "Features", "{B8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{5F08780C-F986-48A4-8ACA-0ADBC0AC9A83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Features.Authentications", "Features.Authentications\Features.Authentications.csproj", "{FCF8993C-E384-4FBC-A87B-CF8B7073F407}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Features.Authentications", "Features.Authentications\Features.Authentications.csproj", "{FCF8993C-E384-4FBC-A87B-CF8B7073F407}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Features.Cities", "Features.Cities\Features.Cities.csproj", "{ABB9669F-CDA3-46AF-BEC8-D3C5CE8B2457}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Features.Cities", "Features.Cities\Features.Cities.csproj", "{ABB9669F-CDA3-46AF-BEC8-D3C5CE8B2457}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Core", "Shared.Core\Shared.Core.csproj", "{9636617D-FA30-4EC9-8661-812199EC6991}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Core", "Shared.Core\Shared.Core.csproj", "{9636617D-FA30-4EC9-8661-812199EC6991}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.DataPersistence", "Shared.DataPersistence\Shared.DataPersistence.csproj", "{18BAA361-1037-4753-9C5B-A733E9114A56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.DataPersistence", "Shared.DataPersistence\Shared.DataPersistence.csproj", "{18BAA361-1037-4753-9C5B-A733E9114A56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Features.Companies", "Features.Companies\Features.Companies.csproj", "{A0C65A74-D6FF-4D7D-BC9C-B7B0DEDEDB1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Features.Companies", "Features.Companies\Features.Companies.csproj", "{A0C65A74-D6FF-4D7D-BC9C-B7B0DEDEDB1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Features.Offices", "Features.Offices\Features.Offices.csproj", "{62CC7EAC-88C2-4431-890D-5A12A9F5E5B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Features.Offices", "Features.Offices\Features.Offices.csproj", "{62CC7EAC-88C2-4431-890D-5A12A9F5E5B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Features.Transactions", "Features.Transactions\Features.Transactions.csproj", "{D8330F5F-2F63-46F3-B277-4F730A477ABA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Features.Transactions", "Features.Transactions\Features.Transactions.csproj", "{D8330F5F-2F63-46F3-B277-4F730A477ABA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,10 +64,13 @@ Global
 		{D8330F5F-2F63-46F3-B277-4F730A477ABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8330F5F-2F63-46F3-B277-4F730A477ABA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{F57B1FB7-B3FA-4717-B3D7-0CEF6524ABE2} = {F757175B-F96C-4007-A92C-38D75C8129C5}
 		{B830698B-F711-45C5-9533-88C4CF1176B9} = {F757175B-F96C-4007-A92C-38D75C8129C5}
 		{5F08780C-F986-48A4-8ACA-0ADBC0AC9A83} = {F757175B-F96C-4007-A92C-38D75C8129C5}
-		{F57B1FB7-B3FA-4717-B3D7-0CEF6524ABE2} = {F757175B-F96C-4007-A92C-38D75C8129C5}
 		{FCF8993C-E384-4FBC-A87B-CF8B7073F407} = {B830698B-F711-45C5-9533-88C4CF1176B9}
 		{ABB9669F-CDA3-46AF-BEC8-D3C5CE8B2457} = {B830698B-F711-45C5-9533-88C4CF1176B9}
 		{9636617D-FA30-4EC9-8661-812199EC6991} = {5F08780C-F986-48A4-8ACA-0ADBC0AC9A83}
@@ -72,5 +78,8 @@ Global
 		{A0C65A74-D6FF-4D7D-BC9C-B7B0DEDEDB1C} = {B830698B-F711-45C5-9533-88C4CF1176B9}
 		{62CC7EAC-88C2-4431-890D-5A12A9F5E5B1} = {B830698B-F711-45C5-9533-88C4CF1176B9}
 		{D8330F5F-2F63-46F3-B277-4F730A477ABA} = {B830698B-F711-45C5-9533-88C4CF1176B9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51C80E89-65AC-4D10-A397-B45FFC3E8234}
 	EndGlobalSection
 EndGlobal
